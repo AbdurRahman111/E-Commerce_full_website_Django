@@ -1,0 +1,50 @@
+{% extends 'basic.html' %}
+
+{% block body %}
+
+<div class="container">
+	<div class="col-lg-5 mx-auto mt-5 border rounded pt-4">
+		<h4 class="alert alert-success border rounded">Create an Account</h4>
+		<form action="/singup/" method="POST">
+			{% csrf_token %}
+			{% if error %}
+			<div class="alert alert-danger" role="alert">
+			  {{error}}
+			</div>
+			{% endif %}
+			<div class="form-group">
+			    <label for="exampleFormControlInput1">First Name</label>
+			    <input  type="text" value="{{valus.first_name2}}" name="firstname" class="form-control" id="exampleFormControlInput1">
+			</div>
+
+			<div class="form-group">
+			    <label for="exampleFormControlInput1">Last Name</label>
+			    <input  type="text" value="{{valus.last_name2}}" name="lastname" class="form-control" id="exampleFormControlInput2">
+			</div>
+
+			<div class="form-group">
+			    <label for="exampleFormControlInput1">Phone</label>
+			    <input  type="text" value="{{valus.phone2}}" name="phone" class="form-control" id="exampleFormControlInput3" placeholder="76544366677">
+			</div>
+
+			<div class="form-group">
+			    <label for="exampleFormControlInput1">Email address</label>
+			    <input  type="email" value="{{valus.email2}}" name="email" class="form-control" id="exampleFormControlInput4" placeholder="name@example.com">
+			</div>
+
+			<div class="form-group">
+			    <label for="exampleFormControlInput1">Password</label>
+			    <input  type="text" name="password" class="form-control" id="exampleFormControlInput5" placeholder="********">
+			</div>
+
+			<div class="form-group">
+			    <input class="btn btn-info" type="submit" value="Create an Account">
+			</div>
+			
+
+		</form>
+	</div>
+</div>
+
+
+{% endblock %}

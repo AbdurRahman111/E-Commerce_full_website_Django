@@ -1,0 +1,52 @@
+{% extends 'basic.html' %}
+
+{% block body %}
+{% load cart %}
+
+<div class="container">
+	<div class="border rounded p-4 m-4">
+        <p class="display-2">Your Order</p>
+        <hr>
+        <table class="table">
+  <thead>
+    <tr>
+
+		<th>Sno</th>
+      <th>Name</th>
+      <th>Date</th>
+      <th>status</th>
+
+
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in allproddss %}
+    <tr>
+    	<td>{{forloop.counter}}</td>
+      <td>{{i.name}}</td>
+      <td>{{i.date}}</td>
+      {% if i.stutas %}
+      <td><small class="badge badge-success">Completed</small></td>
+
+      {% else %}
+      <td><small class="badge badge-warning">Pending</small></td>
+      {% endif %}
+
+    </tr>
+  {% endfor %}
+
+
+
+  </tbody>
+
+
+</table>
+
+
+	</div>
+</div>
+
+
+
+{% endblock %}

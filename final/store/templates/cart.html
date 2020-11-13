@@ -1,0 +1,94 @@
+{% extends 'basic.html' %}
+
+{% block body %}
+{% load cart %}
+
+<div class="container">
+	<div class="border rounded p-4 m-4">
+        <p class="display-2">Your Cart</p>
+        <hr>
+        <table class="table">
+  <thead>
+    <tr>
+
+		<th>Sno</th>    		
+      <th>Name</th>
+      <th>Picture</th>
+      <th>Quantity</th>
+      <th>Price</th>
+        <th>Total Price</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in cartproducts %}
+    <tr>
+    	<td>{{forloop.counter}}</td>
+      <td>{{i.name}}</td>
+      <td><img style="height:60px; width:50px" src="/media/{{i.image}}" class="" alt="..."></td>
+      <td>{{i|quantity:request.session.cart}}</td>
+        <td>{{i.price|currency}}</td>
+      <td>{{i|sub_total_price:request.session.cart|currency}}</td>
+    </tr>
+  {% endfor %}
+
+
+
+  </tbody>
+      <tfoot>
+            <tr>
+                <th colspan="4"></th>
+                <th colspan="">Total</th>
+                <th>{{cartproducts|total_price:request.session.cart|currency}}</th>
+            </tr>
+      </tfoot>
+
+</table>
+		<hr>
+        <div class="m-3 p-3">
+        	<a href="#"class="btn btn-outline-success float-right border rounded  col-lg-3" data-toggle="modal" data-target="#exampleModal" >Cheack Out</a>
+        </div>
+
+	</div>
+</div>
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="pt-3 mt-3">
+        	<form action="/checkout" method="POST">
+        		{% csrf_token %}
+        		<div class="form-group">
+				    <label for="exampleFormControlInput1">Address</label>
+				    <input type="text" name="address" class="form-control" id="exampleFormControlInput1" >
+			  	</div>
+
+			  	<div class="form-group">
+				    <label for="exampleFormControlInput2">Phone</label>
+				    <input type="text" name="phone" class="form-control" id="exampleFormControlInput2" placeholder="2345678">
+			  	</div>
+
+			  	<div class="form-group">
+				    
+				    <input type="submit" class="btn btn-outline-success float-right col-lg-5" value="Check Out">
+			  	</div>
+
+        	</form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% endblock %}
